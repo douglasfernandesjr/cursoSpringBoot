@@ -16,12 +16,12 @@ public class SupplierService {
     @Autowired
     private SupplierRepository repository;
 
-    public Supplier findById(Long id) {
+    public Supplier findById(Integer id) {
         Optional<Supplier> supplier = repository.findById(id);
         return supplier.orElseThrow(() -> new DataNotFoundException("Supplier Not found"));
     }
 
-    public List<Supplier> ListAll() {
+    public List<Supplier> listAll() {
         return repository.findAll();
     }
 

@@ -8,43 +8,40 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Supplier")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class Supplier{
+public class Supplier {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "Id", nullable = false)
-  private Long id;
-  
-  @Column(name = "CompanyName", nullable = false, length = 40)
+  private Integer id;
+
+  @Column(name = "CompanyName", nullable = false, columnDefinition = "nvarchar")
   private String companyName;
-  
-  @Column(name = "ContactName", length = 50)
+
+  @Column(name = "ContactName", columnDefinition = "nvarchar")
   private String contactName;
-  
-  @Column(name = "ContactTitle", length = 40)
+
+  @Column(name = "ContactTitle", columnDefinition = "nvarchar")
   private String contactTitle;
 
-  @Column(name = "City", length = 40)
+  @Column(name = "City", columnDefinition = "nvarchar")
+
   private String city;
 
-  @Column(name = "Country", length = 40)
+  @Column(name = "Country", columnDefinition = "nvarchar")
   private String country;
 
-  @Column(name = "Phone", length = 30)
+  @Column(name = "Phone", columnDefinition = "nvarchar")
   private String phone;
 
-  @Column(name = "Fax", length = 30)
+  @Column(name = "Fax", columnDefinition = "nvarchar")
   private String fax;
 }
