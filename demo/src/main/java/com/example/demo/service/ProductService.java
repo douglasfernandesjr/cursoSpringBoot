@@ -35,4 +35,28 @@ public class ProductService {
         return repository.save(entity);
     }
 
+	public void update(Product entity) {
+
+        Product db = repository.findById(entity.getId()).get();
+
+        if(entity.getPackageName() != null){
+            db.setPackageName(entity.getPackageName());
+        }
+
+         if(entity.getIsDiscontinued() != null){
+            db.setIsDiscontinued(entity.getIsDiscontinued());
+        }
+
+         if(entity.getProductName() != null){
+            db.setProductName(entity.getProductName());
+        }
+
+         if(entity.getUnitPrice() != null){
+            db.setUnitPrice(entity.getUnitPrice());
+        }
+
+        repository.save(db);
+
+	}
+
 }

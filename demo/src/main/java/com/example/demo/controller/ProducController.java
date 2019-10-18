@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import com.example.demo.domain.dto.request.ProductCreateRequest;
+import com.example.demo.domain.dto.request.ProductUpdateRequest;
 import com.example.demo.domain.dto.response.ProductListResponse;
 import com.example.demo.domain.entities.Product;
 import com.example.demo.domain.mapper.ProductMapper;
@@ -25,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -67,7 +69,7 @@ public class ProducController {
 
         @ApiOperation(value = "List products of a supplier")
         @ApiResponses(value = { //
-                        @ApiResponse(code = 200, message = "Return a list of SupplierListResponse"), //
+                        @ApiResponse(code = 200, message = "Return a list of ProductListResponse"), //
                         @ApiResponse(code = 404, message = "Values not found"), //
         })
         @GetMapping(value = "/{supplierId}" + PRODUCT + "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -104,6 +106,25 @@ public class ProducController {
                                 .status(HttpStatus.CREATED) //
                                 .header("Location", location.toString()) //
                                 .build();
+        }
+
+        @ApiOperation(value = "Update product for a supplier")
+        @ApiResponses(value = {
+                        @ApiResponse(code = HttpServletResponse.SC_OK, message = "Product Updated"), //
+                        @ApiResponse(code = HttpServletResponse.SC_INTERNAL_SERVER_ERROR, //
+                                        message = "An unexpected error occurred!"), //
+                        @ApiResponse(code = HttpServletResponse.SC_BAD_REQUEST, //
+                                        message = "Bad Request!") //
+        })
+        @PutMapping(value = "/{supplierId}" + PRODUCT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        @ResponseStatus(value = HttpStatus.OK)
+        public ResponseEntity<Void> create(@Valid @RequestBody ProductUpdateRequest request,
+                        @PathVariable @NotEmpty(message = "Request param 'supplierId' is required") Integer supplierId) {
+
+                Product entity = mapper.ToEntity(request);
+                service.update(entity);
+
+                return ResponseEntity.ok().build();
         }
 
 }

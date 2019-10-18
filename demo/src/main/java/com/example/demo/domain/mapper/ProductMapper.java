@@ -1,6 +1,7 @@
 package com.example.demo.domain.mapper;
 
 import com.example.demo.domain.dto.request.ProductCreateRequest;
+import com.example.demo.domain.dto.request.ProductUpdateRequest;
 import com.example.demo.domain.dto.response.ProductListResponse;
 import com.example.demo.domain.entities.Product;
 import com.example.demo.domain.entities.Supplier;
@@ -23,6 +24,11 @@ public class ProductMapper {
         Product model = mapper.map(input, Product.class);
         model.setIsDiscontinued(false);
         model.setSupplier(Supplier.builder().id(input.getSupplierId()).build());
+        return  model;
+    }
+
+    public Product ToEntity(ProductUpdateRequest input) {
+        Product model = mapper.map(input, Product.class);
         return  model;
     }
 }
