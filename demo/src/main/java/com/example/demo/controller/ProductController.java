@@ -42,7 +42,7 @@ import io.swagger.annotations.ResponseHeader;
 @RestController
 @RequestMapping(API_SUPPLIER)
 @Api(tags = { "Products" }, value = "Api for return Products")
-public class ProducController {
+public class ProductController {
 
         @Autowired
         private ProductMapper mapper;
